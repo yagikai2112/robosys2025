@@ -1,13 +1,20 @@
 #!/usr/bin/python3
 # SPDX-FileCopyrightText: 2025 Kaito Yagiuchi
+# SPDX-License-Identifier: BSD-3-Clause
 
-import sys  
+import sys
+
+
+def tonum(s):
+    try:
+        return int(s)
+    except:
+        return float(s)
+
 
 ans = 0
 for line in sys.stdin:
-    try:
-        ans += int(line)
-    except:
-        ans += float(line)
+        line = line.rstrip()
+        ans += tonum(line)
 
 print(ans)
