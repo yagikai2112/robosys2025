@@ -2,9 +2,11 @@
 # SPDX-FileCopyrightText: 2025 Kaito Yagiuchi
 # SPDX-License-Identifier: BSD-3-Clause
 
-import sys
 
+import sys
+sys.dont_write_bytecode = True
 from keys import keys, get_random_key
+
 
 def vigenere_encrypt(plaintext, key):
     key = key.lower()
