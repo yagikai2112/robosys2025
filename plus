@@ -4,17 +4,62 @@
 
 import sys
 
+from keys import keys, get_random_key
 
-def tonum(s):
-    try:
-        return int(s)
-    except:
-        return float(s)
+def vigenere_encrypt(plaintext, key):
+    key = key.lower()
+    ciphertext = ""
+    key_index = 0
+
+    for char in plaintext:
+        if char.isalpha():
+            shift = ord(key[key_index % len(key)]) - ord('a')
+            base = ord('A') if char.isupper() else ord('a')
+            ciphertext += chr((ord(char) - base + shift) % 26 + base)
+            key_index += 1
+        else:
+            ciphertext += char
+    return ciphertext
+
+def vigenere_decrypt(ciphertext, key):
+    key = key.lower()
+    plaintext = ""
+    key_index = 0
+
+    for char in ciphertext:
+        if char.isalpha():
+            shift = ord(key[key_index % len(key)]) - ord('a')
+            base = ord('A') if char.isupper() else ord('a')
+            plaintext += chr((ord(char) - base - shift) % 26 + base)
+            key_index += 1
+        else:
+            plaintext += char
+    return plaintext
 
 
-ans = 0
-for line in sys.stdin:
-        line = line.rstrip()
-        ans += tonum(line)
+if __name__ == "__main__":
+    print("モード選択:")
+    mode = input().strip()
 
-print(ans)
+    if mode == "1":
+        print("原文入力:")
+        index, key = get_random_key()
+        text = input().strip()
+        encrypted = vigenere_encrypt(text, key)
+
+        print("キー番号:", index)
+        print("暗号文:", encrypted)
+
+    elif mode == "2":
+        print("キー番号:")
+        index = int(input().strip())
+        key = keys[index]
+        print("暗号文:")
+        text = input().strip()
+
+        decrypted = vigenere_decrypt(text, key)
+
+        print("復号結果:", decrypted)
+
+    else:
+        print("モードが正しくありません。1 または 2 を入力してください。")
