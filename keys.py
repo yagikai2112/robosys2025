@@ -21,6 +21,7 @@ keys = [
     "paper"
 ]
 
-def get_random_key():
-    index = random.randint(0, len(keys) - 1)
+def get_key(index=None):
+    if index is None:
+        index = random.randint(0, len(keys) - 1)
     return index, keys[index]
