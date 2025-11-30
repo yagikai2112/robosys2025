@@ -104,7 +104,7 @@ invalid_key_test() {
     echo "----------------------------------"
 }
 
-encrypt_decrypt_test "HELLOWORLD" 3 "暗号化→復号: HELLOWORLD (キー3)"
+encrypt_decrypt_test "HELLO WORLD" 3 "暗号化→復号: HELLOWORLD (キー3)"
 encrypt_decrypt_test "ATTACKATDAWN" 5 "暗号化→復号: ATTACKATDAWN (キー5)"
 
 invalid_test1 "" 2 "モード1空文字"

@@ -63,7 +63,7 @@ if __name__ == "__main__":
     try:
         raw = input("モード (1=暗号化, 2=復号化): ") if is_tty else input()
     except EOFError:
-        sys.exit(2)  # 空文字扱い
+        sys.exit(2)
     except Exception:
         sys.exit(1)
 
@@ -73,20 +73,15 @@ if __name__ == "__main__":
 
 
     if mode == "1":
-    # テスト用のキー番号環境変数
         test_index = int(os.environ["TEST_KEY_INDEX"]) if "TEST_KEY_INDEX" in os.environ else None
         index, key = get_key(test_index)
-
-    # 暗号化入力
         text = read_alpha_input("平文: ", is_tty) if is_tty else read_alpha_input(is_tty=is_tty)
         encrypted = vigenere_encrypt(text, key)
-
         print(index)
         print(encrypted)
         sys.exit(0)
 
     elif mode == "2":
-    # 安全にキー番号を取得
         try:
             index = int(input("キー番号: " if is_tty else "").strip())
         except Exception:
@@ -94,7 +89,6 @@ if __name__ == "__main__":
         if not (0 <= index < len(keys)):
             sys.exit(5)
 
-    # 復号入力
         text = read_alpha_input("暗号文: ", is_tty) if is_tty else read_alpha_input(is_tty=is_tty)
         key = keys[index]
 
