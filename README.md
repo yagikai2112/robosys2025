@@ -1,9 +1,50 @@
+# 暗号処理
 # robosys2025
-ロボットシステム学課題１
+このリポジトリは2025年度ロボットシステム学にて作成したものです。
 
+## テスト環境  
+* Ubuntu-24.04
+    * Python version: 3.7~3.12
+
+## インストール方法
+以下のコマンドを使用してインストールしてください
+```
+$ git clone https://github.com/yagikai2112/robosys2025.git
+$ cd robosys2025
+```
+
+## plusコマンド使い方
+plusコマンドは1.暗号化、2.復元の2つのモードがあります。
+plusコマンド実行後、初めにどちらのモードにするのかをコマンドラインに入力します。
+その後の動きがモードによって少し異なるため分けて説明します。
+
+- 1.暗号化
+１．plusコマンド実行
+２．モード入力(半角数字)
+３．暗号化したい文章を半角アルファベットのみで入力
+４．結果としてランダムに選ばれたキーの番号と暗号文が出力される
+```
+$ ./plus
+モード (1=暗号化, 2=復号化):1
+平文:Hello It is nice weather
+6
+Tydtq Un aa puww egmnzmt
+```
+
+- ２.復元
+１．plusコマンド実行
+２．モード入力(半角数字)
+３．暗号化の際に出てきたキーの番号を入力
+４．復元したい文章を半角アルファベットと半角スペースのみで入力
+５．結果として復元された文が出力される
+```
+$ ./plus
+モード (1=暗号化, 2=復号化):2
+キー番号:6
+暗号文:Tydtq Un aa puww egmnzmt
+Hello It is nice weather
+```
+
+## 著作権、ライセンス
 - このソフトウェアパッケージは，3条項BSDライセンスの下，再頒布および使用が許可されます．
-- このパッケージは，
-ryuichiueda由来のコード（© 2025 Ryuichi Ueda）を利用しています．
-- このパッケージのコードは，下記のスライド（CC-BY-SA 4.0 by Ryuichi Ueda）のものを，本人の許可を得て自身の著作としたものです．
-    -[ryuichiueda/my_slides robosys_2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025)
-- © 2025 Ryuichi Ueda
+- © 2025 Kaito Yagiuchi

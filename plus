@@ -54,7 +54,7 @@ def read_alpha_input(prompt=None, is_tty=False):
         sys.exit(2)
     if not line.isascii():
         sys.exit(3)
-    if not line.isalpha():
+    if not all(c.isalpha() or c == ' ' for c in line):
         sys.exit(4)
     return line
 
@@ -81,12 +81,8 @@ if __name__ == "__main__":
         text = read_alpha_input("平文: ", is_tty) if is_tty else read_alpha_input(is_tty=is_tty)
         encrypted = vigenere_encrypt(text, key)
 
-        if is_tty:
-            print("キー番号:", index)
-            print("暗号文:", encrypted)
-        else:
-            print(index)
-            print(encrypted)  # key の行は削除
+        print(index)
+        print(encrypted)
         sys.exit(0)
 
     elif mode == "2":
@@ -103,10 +99,7 @@ if __name__ == "__main__":
         key = keys[index]
 
         decrypted = vigenere_decrypt(text, key)
-        if is_tty:
-            print("復号結果:", decrypted)
-        else:
-            print(decrypted)
+        print(decrypted)
         sys.exit(0)
 
     else:
