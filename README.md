@@ -1,7 +1,7 @@
 # 暗号処理
 # robosys2025
 このリポジトリは2025年度ロボットシステム学にて作成したものです。  
-[![test](https://github.com/yagikai2112/robosys2025/.github/workflows/test.yml/badge.svg)](https://github.com/yagikai2112/robosys2025/.github/workflows/test.yml)
+[![test](https://github.com/yagikai2112/robosys2025/actions/workflows/test.yml/badge.svg)](https://actions/yagikai2112/robosys2025/.github/workflows/test.yml)
 
 ## テスト環境  
 - Ubuntu-24.04
