@@ -3,7 +3,7 @@
 [![test](https://github.com/yagikai2112/robosys2025/actions/workflows/test.yml/badge.svg)](https://actions/yagikai2112/robosys2025/.github/workflows/test.yml)
 
 ## ヴィジュネル暗号
-アルファベットの表と「鍵」を使った暗号。平文の1文字ごとに異なるシーザー暗号>を適用するような効果を生み出す。
+アルファベットの表と「鍵」を使った暗号。平文の1文字ごとに異なるシーザー暗号>を適用するような効果を生み出します。
 
 ## テスト環境  
 - Ubuntu-24.04
