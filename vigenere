@@ -2,25 +2,23 @@
 # SPDX-FileCopyrightText: 2025 Kaito Yagiuchi
 # SPDX-License-Identifier: BSD-3-Clause
 
-
 import sys
 sys.dont_write_bytecode = True
 from keys import keys, get_key
 import os
-
 
 def vigenere_encrypt(plaintext, key):
     key = key.lower()
     ciphertext = ""
     key_index = 0
     for char in plaintext:
-        if char.isalpha(): 
-            shift = ord(key[key_index % len(key)]) - ord('a') 
-            base = ord('A') if char.isupper() else ord('a') 
-            ciphertext += chr((ord(char) - base + shift) % 26 + base) 
-            key_index += 1 
-        else: 
-            ciphertext += char 
+        if char.isalpha():
+            shift = ord(key[key_index % len(key)]) - ord('a')
+            base = ord('A') if char.isupper() else ord('a')
+            ciphertext += chr((ord(char) - base + shift) % 26 + base)
+            key_index += 1
+        else:
+            ciphertext += char
     return ciphertext
 
 def vigenere_decrypt(ciphertext, key):
@@ -37,12 +35,9 @@ def vigenere_decrypt(ciphertext, key):
             plaintext += char
     return plaintext
 
-def read_alpha_input(prompt=None, is_tty=False):
+def read_alpha_input():
     try:
-        if is_tty and prompt:
-            raw = input(prompt)
-        else:
-            raw = input()
+        raw = input()
     except EOFError:
         sys.exit(2)
     except Exception:
@@ -56,40 +51,46 @@ def read_alpha_input(prompt=None, is_tty=False):
         sys.exit(3)
     if not all(c.isalpha() or c == ' ' for c in line):
         sys.exit(4)
+
     return line
 
 if __name__ == "__main__":
-    is_tty = sys.stdin.isatty()
     try:
-        raw = input("モード (1=暗号化, 2=復号化): ") if is_tty else input()
+        mode_raw = input()
     except EOFError:
         sys.exit(2)
     except Exception:
         sys.exit(1)
 
-    mode = raw.strip()
+    mode = mode_raw.strip()
     if not mode:
         sys.exit(2)
 
-
     if mode == "1":
-        test_index = int(os.environ["TEST_KEY_INDEX"]) if "TEST_KEY_INDEX" in os.environ else None
+        test_index = os.environ.get("TEST_KEY_INDEX")
+        test_index = int(test_index) if test_index and test_index.isdigit() else None
         index, key = get_key(test_index)
-        text = read_alpha_input("平文: ", is_tty) if is_tty else read_alpha_input(is_tty=is_tty)
+
+        text = read_alpha_input()
         encrypted = vigenere_encrypt(text, key)
+
         print(index)
         print(encrypted)
         sys.exit(0)
 
     elif mode == "2":
         try:
-            index = int(input("キー番号: " if is_tty else "").strip())
+            index_raw = input().strip()
+            if not index_raw.isascii():
+                sys.exit(5)
+            index = int(index_raw)
         except Exception:
             sys.exit(5)
+
         if not (0 <= index < len(keys)):
             sys.exit(5)
 
-        text = read_alpha_input("暗号文: ", is_tty) if is_tty else read_alpha_input(is_tty=is_tty)
+        text = read_alpha_input()
         key = keys[index]
 
         decrypted = vigenere_decrypt(text, key)
@@ -97,6 +98,4 @@ if __name__ == "__main__":
         sys.exit(0)
 
     else:
-        if is_tty:
-            print("モードが正しくありません。1 または 2 を入力してください。")
         sys.exit(1)
